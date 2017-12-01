@@ -3,6 +3,8 @@ using System.Collections;
 
 public class ToggleWaveSpawner : MonoBehaviour {
 
+	public static ToggleWaveSpawner instance;
+
 	public Transform runnerPrefab;
 	public Transform spawnPoint;
 
@@ -12,9 +14,17 @@ public class ToggleWaveSpawner : MonoBehaviour {
 	public float enemyCount = 5f;
 
 	// toggleable spawn flag
-	public static bool spawn = false;
+	public bool spawn = false;
 
 	private float secondsUntilSpawn = 0;
+
+	void Awake() {
+		if (instance != null) {
+			Debug.LogError ("More than one ToggleWaveSpawner in scene!");
+			return;
+		}
+		instance = this;
+	}
 
 	void Update() {
 		if (!spawn)

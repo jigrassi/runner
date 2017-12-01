@@ -6,13 +6,13 @@ public class KeyListener : MonoBehaviour {
 	void OnGUI() {
 		Event e = Event.current;
 		switch (e.keyCode) {
-			case KeyCode.S:
-				Debug.Log("S key pressed");
-				
-				if (ToggleWaveSpawner.spawn) {
-					ToggleWaveSpawner.spawn = !ToggleWaveSpawner.spawn;
-				}
-				break;
+		case KeyCode.S:
+			ToggleWaveSpawner.instance.spawn = !ToggleWaveSpawner.instance.spawn;
+			break;
+		default:
+			var s = "{e.KeyCode} pressed";
+			Debug.Log (s);
+			break;
 		}
 	}
 }
