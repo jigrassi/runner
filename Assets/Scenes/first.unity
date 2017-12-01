@@ -758,6 +758,8 @@ GameObject:
   - 4: {fileID: 1135668818}
   - 114: {fileID: 1135668821}
   - 114: {fileID: 1135668820}
+  - 114: {fileID: 1135668819}
+  - 114: {fileID: 1135668822}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -778,13 +780,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
---- !u!114 &1135668820
+--- !u!114 &1135668819
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1135668817}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f73d46cafb3efdf4a8b7213a3ad03957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runnerPrefab: {fileID: 498700, guid: 144e67345d4b041469fc9f75d46a3622, type: 2}
+  spawnPoint: {fileID: 674278387}
+  enemyCount: 5
+  spawnDelaySeconds: 0.2
+--- !u!114 &1135668820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1135668817}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5521f1dcdc44b411f849fefc8166df8f, type: 3}
   m_Name: 
@@ -804,6 +821,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ad6af9bd7f5245a0aeb8d78bac39b9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1135668822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1135668817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f178e6c0e423b8443bee66a2fd054773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1148107554
