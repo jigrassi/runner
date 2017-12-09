@@ -13,6 +13,7 @@ public class Tower : MonoBehaviour {
 
 	void Start() {
 		attack_delay = 1f / attack_speed;
+		StartCoroutine (BeginFiring());
 	}
 
 	// draw attack range indicator
@@ -20,7 +21,7 @@ public class Tower : MonoBehaviour {
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere (transform.position, attack_range);
 	}
-	void FixedUpdate () {
+	void Update () {
 		DetectEnemy ();
 	}
 		
@@ -33,19 +34,20 @@ public class Tower : MonoBehaviour {
 
 		if (hitColliders.Length > 0) {
 			target = hitColliders [0].gameObject.transform;
-			StartCoroutine (BeginFiring());
+
 		}
 	}
 
 	private IEnumerator BeginFiring() {
-		while (target != null) {
-			FireProjectile ();
-			yield return new WaitForSeconds(attack_delay);
-			if (Vector2.Distance((Vector2)transform.position, (Vector2)target.position) > attack_range) {
-				target = null;
+		while (true) {
+			if (target != null) {
+				FireProjectile ();
+				if (Vector2.Distance ((Vector2)transform.position, (Vector2)target.position) > attack_range) {
+					target = null;
+				}
 			}
+			yield return new WaitForSeconds(attack_delay);
 		}
-				
 	}
 
 	private void FireProjectile() {
