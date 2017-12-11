@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 4188859873
+    locked: 0
+  - name: Objects
+    uniqueID: 4095964981
+    locked: 0
+  - name: Object UI
+    uniqueID: 3921984769
+    locked: 0

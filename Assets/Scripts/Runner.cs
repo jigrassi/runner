@@ -5,22 +5,27 @@ using System.Collections;
 public class Runner : MonoBehaviour {
 
 	public float speed = 5f;
-	public float health = 10f;
+	public float max_health = 10f;
+	public float current_health = 0f;
 	public Transform end;
 
-	public Transform canvas_prefab;
+	public Transform health_prefab;
 	private Transform health_display;
 
 	void Awake() {
-		health_display = (Transform)Instantiate (canvas_prefab, transform.position, transform.rotation);
+		current_health = max_health;
+
+		health_display = (Transform)Instantiate (health_prefab, transform.position, transform.rotation);
 		health_display.transform.SetParent(transform);
-		health_display.GetComponent<Text> ().text = health.ToString ();
-		RectTransform rt = health_display.GetComponent<RectTransform> ();
-		rt.localPosition = Vector2.zero;
+		health_display.GetComponent<HealthDisplay>().health_ratio = 1;
+
+		// size and position the health bar
+		RectTransform rt = health_display.GetComponent<RectTransform>();
+		rt.localScale = new Vector2(1, 1);
+		rt.localPosition = new Vector2(0, 3);
 	}
 
 	void Update() {
-		DrawHealth ();
 		Vector2 dir = (Vector2)end.position - (Vector2)transform.position;
 		transform.Translate (dir.normalized * speed * Time.deltaTime, Space.World);
 
@@ -29,14 +34,16 @@ public class Runner : MonoBehaviour {
 		}
 	}
 
-	void DrawHealth() {
-		
-	}
-
 	void AddDamage(float dmg) {
-		health -= dmg;
-		if (health <= 0) {
+		current_health -= dmg;
+		if (current_health <= 0) {
 			Destroy (gameObject);
 		}
+
+		UpdateHealth();
+	}
+
+	void UpdateHealth() {
+		health_display.GetComponent<HealthDisplay>().health_ratio = current_health / max_health;
 	}
 }

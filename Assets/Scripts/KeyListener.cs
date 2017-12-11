@@ -8,7 +8,7 @@ public class KeyListener : MonoBehaviour {
 		if (!e.isKey || e.type != UnityEngine.EventType.KeyDown) {
 			return;
 		}
-		Debug.Log ("Type: " + e.type);
+//		Debug.Log ("Type: " + e.type);
 		switch (e.keyCode) {
 		case KeyCode.S:
 			SpawnOnPress.instance.spawn();
