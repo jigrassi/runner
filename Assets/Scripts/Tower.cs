@@ -52,7 +52,7 @@ public class Tower : MonoBehaviour {
 
 	private void FireProjectile() {
 		Transform projectile = (Transform) Instantiate (projectile_prefab, transform.position, transform.rotation);
-		Projectile proj_script = projectile.GetComponent<Projectile> ();
+		SplashProjectile proj_script = projectile.GetComponent<SplashProjectile> ();
 		proj_script.target = target.position;
 	}
 }

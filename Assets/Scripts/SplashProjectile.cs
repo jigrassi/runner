@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Projectile : MonoBehaviour {
+public class SplashProjectile : MonoBehaviour {
 
 	public float speed = 1f;
 	public Vector2 target;
