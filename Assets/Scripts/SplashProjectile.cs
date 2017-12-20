@@ -10,6 +10,8 @@ public class SplashProjectile : MonoBehaviour {
 
 	private float COLLISION_RADIUS = 0.2f;
 
+	public Transform explosion_prefab;
+
 	void Start() {
 		Vector2 dir = (Vector2)target - (Vector2)transform.position;
 		Rigidbody2D rb = transform.GetComponent<Rigidbody2D> ();
@@ -24,6 +26,8 @@ public class SplashProjectile : MonoBehaviour {
 			for (int i = 0; i < hitCollider.Length; i++) {
 				hitCollider [i].SendMessage ("AddDamage", damage);
 			}
+			Transform exp = Instantiate (explosion_prefab, transform.position, transform.rotation);
+			exp.SendMessage("SetSize", damage_radius * 2);
 		}
 	}
 }
