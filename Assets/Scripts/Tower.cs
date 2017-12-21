@@ -9,7 +9,7 @@ public class Tower : MonoBehaviour {
 
 	public float attackRange = 3f;
 	public float attackSpeed = 1f;
-	private float AttackDelay = 1f;
+	private float attackDelay = 1f;
 
 	private Transform target;
 	private Collider2D[] hitColliders;
@@ -19,7 +19,7 @@ public class Tower : MonoBehaviour {
 		modifiers = new List<TowerAttributes.ModifierType>();
 		modifiers.Add (TowerAttributes.ModifierType.Damage1);
 		modifiers.Add (TowerAttributes.ModifierType.Slow1);
-		AttackDelay = 1f / attackSpeed;
+		attackDelay = 1f / attackSpeed;
 		StartCoroutine (BeginFiring());
 	}
 
@@ -54,7 +54,7 @@ public class Tower : MonoBehaviour {
 					target = null;
 				}
 			}
-			yield return new WaitForSeconds(AttackDelay);
+			yield return new WaitForSeconds(attackDelay);
 		}
 	}
 
