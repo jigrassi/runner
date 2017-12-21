@@ -14,7 +14,7 @@ public class KeyListener : MonoBehaviour {
 			SpawnOnPress.instance.spawn();
 			break;
 		default:
-			Debug.Log (e.keyCode + " pressed");
+//			Debug.Log (e.keyCode + " pressed");
 			break;
 		}
 	}
