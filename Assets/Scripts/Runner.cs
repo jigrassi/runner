@@ -45,5 +45,6 @@ public class Runner : MonoBehaviour {
 
 	void UpdateHealth() {
 		health_display.GetComponent<HealthDisplay>().health_ratio = current_health / max_health;
+		health_display.gameObject.SetActive (true);
 	}
 }

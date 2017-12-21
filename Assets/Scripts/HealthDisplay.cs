@@ -11,6 +11,7 @@ public class HealthDisplay : MonoBehaviour {
 	private int FOREGROUND_INDEX = 1;
 
 	void Start() {
+		gameObject.SetActive (false);
 		background = transform.GetChild(BACKGROUND_INDEX).GetComponent<RectTransform>();
 		foreground = transform.GetChild(FOREGROUND_INDEX).GetComponent<RectTransform>();
 	}
