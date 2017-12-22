@@ -10,9 +10,9 @@ GameObject:
   - component: {fileID: 421444}
   - component: {fileID: 21229334}
   - component: {fileID: 5038442}
-  - component: {fileID: 114477416203797338}
+  - component: {fileID: 114947417942293256}
   m_Layer: 0
-  m_Name: SplashProjectile
+  m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,7 +106,7 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 151984}
   m_IsPrefabParent: 1
---- !u!114 &114477416203797338
+--- !u!114 &114947417942293256
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -114,12 +114,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 151984}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79a90405937e84c92a58127f2bcd4bdb, type: 3}
+  m_Script: {fileID: 11500000, guid: df2c5aea25f279a4d89b81320041b3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
   target: {x: 0, y: 0}
-  damage_radius: 1
-  damage: 5
-  explosion_prefab: {fileID: 4974472579013690, guid: 15003172b43bca142af68428664f2c76,
+  damageRadius: 1
+  damage: 1
+  explosionPrefab: {fileID: 4974472579013690, guid: 15003172b43bca142af68428664f2c76,
     type: 2}

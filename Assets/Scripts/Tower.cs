@@ -1,26 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Tower : MonoBehaviour {
 
-	public Transform projectile_prefab;
-	public Transform target;
+	public Transform projectilePrefab;
+	public List<TowerAttributes.ModifierType> modifiers; // special attributes that modify the tower's effects
 
-	public float attack_range = 3f;
-	public float attack_speed = 1f;
-	private float attack_delay = 1f;
-	public Collider2D[] hitColliders;
+	public float attackRange = 3f;
+	public float attackSpeed = 1f;
+	private float attackDelay = 1f;
+
+	private Transform target;
+	private Collider2D[] hitColliders;
+
 
 	void Start() {
-		attack_delay = 1f / attack_speed;
+		modifiers = new List<TowerAttributes.ModifierType>();
+		modifiers.Add (TowerAttributes.ModifierType.Damage1);
+		modifiers.Add (TowerAttributes.ModifierType.Slow1);
+		attackDelay = 1f / attackSpeed;
 		StartCoroutine (BeginFiring());
 	}
 
 	// draw attack range indicator
 	void OnDrawGizmos() {
 		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere (transform.position, attack_range);
+		Gizmos.DrawWireSphere (transform.position, attackRange);
 	}
+
 	void Update () {
 		DetectEnemy ();
 	}
@@ -30,7 +38,7 @@ public class Tower : MonoBehaviour {
 			return;
 		}
 
-		hitColliders = Physics2D.OverlapCircleAll ((Vector2)transform.position, attack_range);
+		hitColliders = Physics2D.OverlapCircleAll ((Vector2)transform.position, attackRange);
 
 		if (hitColliders.Length > 0) {
 			target = hitColliders [0].gameObject.transform;
@@ -42,17 +50,18 @@ public class Tower : MonoBehaviour {
 		while (true) {
 			if (target != null) {
 				FireProjectile ();
-				if (Vector2.Distance ((Vector2)transform.position, (Vector2)target.position) > attack_range) {
+				if (Vector2.Distance ((Vector2)transform.position, (Vector2)target.position) > attackRange) {
 					target = null;
 				}
 			}
-			yield return new WaitForSeconds(attack_delay);
+			yield return new WaitForSeconds(attackDelay);
 		}
 	}
 
 	private void FireProjectile() {
-		Transform projectile = (Transform) Instantiate (projectile_prefab, transform.position, transform.rotation);
-		SplashProjectile proj_script = projectile.GetComponent<SplashProjectile> ();
-		proj_script.target = target.position;
+		Transform projectile = (Transform) Instantiate (projectilePrefab, transform.position, transform.rotation);
+		Projectile projScript = projectile.GetComponent<Projectile> ();
+		projScript.target = target.position;
+		projScript.modifiers = modifiers;
 	}
 }

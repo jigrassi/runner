@@ -5,15 +5,13 @@ public class HealthDisplay : MonoBehaviour {
 
 	public float health_ratio = 0f;
 
-	private RectTransform background = null;
 	private RectTransform foreground = null;
-	private int BACKGROUND_INDEX = 0;
-	private int FOREGROUND_INDEX = 1;
+	private const int BackgroundIndex = 0;
+	private const int ForegroundIndex = 1;
 
 	void Start() {
 		gameObject.SetActive (false);
-		background = transform.GetChild(BACKGROUND_INDEX).GetComponent<RectTransform>();
-		foreground = transform.GetChild(FOREGROUND_INDEX).GetComponent<RectTransform>();
+		foreground = transform.GetChild(ForegroundIndex).GetComponent<RectTransform>();
 	}
 
 	// Update is called once per frame

@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  max_health: 10
-  current_health: 0
+  maxHealth: 10
+  currentHealth: 0
   end: {fileID: 428284, guid: fd310549a791f374794c11e5dd50a2b5, type: 2}
-  health_prefab: {fileID: 224899677198455380, guid: a6ef0828605e3bd4b9a4910305c5c461,
+  healthPrefab: {fileID: 224899677198455380, guid: a6ef0828605e3bd4b9a4910305c5c461,
     type: 2}
 --- !u!212 &21280008
 SpriteRenderer:

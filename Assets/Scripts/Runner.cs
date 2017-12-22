@@ -1,26 +1,27 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Runner : MonoBehaviour {
 
 	public float speed = 5f;
-	public float max_health = 10f;
-	public float current_health = 0f;
+	public float maxHealth = 10f;
+	public float currentHealth = 0f;
 	public Transform end;
 
-	public Transform health_prefab;
-	private Transform health_display;
+	public Transform healthPrefab;
+	private Transform healthDisplay;
 
 	void Awake() {
-		current_health = max_health;
+		currentHealth = maxHealth;
 
-		health_display = (Transform)Instantiate (health_prefab, transform.position, transform.rotation);
-		health_display.transform.SetParent(transform);
-		health_display.GetComponent<HealthDisplay>().health_ratio = 1;
+		healthDisplay = (Transform)Instantiate (healthPrefab, transform.position, transform.rotation);
+		healthDisplay.transform.SetParent(transform);
+		healthDisplay.GetComponent<HealthDisplay>().health_ratio = 1;
 
 		// size and position the health bar
-		RectTransform rt = health_display.GetComponent<RectTransform>();
+		RectTransform rt = healthDisplay.GetComponent<RectTransform>();
 		rt.localScale = new Vector2(1, 1);
 		rt.localPosition = new Vector2(0, 3);
 	}
@@ -34,17 +35,23 @@ public class Runner : MonoBehaviour {
 		}
 	}
 
-	void AddDamage(float dmg) {
-		current_health -= dmg;
-		if (current_health <= 0) {
+	void Hit(List<TowerAttributes.ModifierType> modifiers) {
+		TowerAttributes.Modifier m;
+		foreach (TowerAttributes.ModifierType mod in modifiers) {
+			m = TowerAttributes.Instance.GetModifier (mod);
+			currentHealth -= m.addDamage;
+			speed *= m.speedMultiplier;
+		}
+
+		if (currentHealth <= 0) {
 			Destroy (gameObject);
 		}
 
-		UpdateHealth();
+		UpdateHealthDisplay();
 	}
 
-	void UpdateHealth() {
-		health_display.GetComponent<HealthDisplay>().health_ratio = current_health / max_health;
-		health_display.gameObject.SetActive (true);
+	void UpdateHealthDisplay() {
+		healthDisplay.GetComponent<HealthDisplay>().health_ratio = currentHealth / maxHealth;
+		healthDisplay.gameObject.SetActive (true);
 	}
 }
