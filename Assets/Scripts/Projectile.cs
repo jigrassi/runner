@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof (Rigidbody2D))]
 public class Projectile : MonoBehaviour {
 	public float speed = 1f;
 	public Vector2 target;

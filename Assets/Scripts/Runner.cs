@@ -3,9 +3,11 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent (typeof (Collider2D))]
 public class Runner : MonoBehaviour {
 
-	public float speed = 5f;
+	public float baseSpeed = 1f;
+	public float speedMultiplier = 1f;
 	public float maxHealth = 10f;
 	public float currentHealth = 0f;
 	public Transform end;
@@ -28,7 +30,7 @@ public class Runner : MonoBehaviour {
 
 	void Update() {
 		Vector2 dir = (Vector2)end.position - (Vector2)transform.position;
-		transform.Translate (dir.normalized * speed * Time.deltaTime, Space.World);
+		transform.Translate (dir.normalized * baseSpeed * speedMultiplier * Time.deltaTime, Space.World);
 
 		if (Vector2.Distance((Vector2)transform.position, (Vector2)end.position) < 0.3f) {
 			Destroy (gameObject);
@@ -36,19 +38,18 @@ public class Runner : MonoBehaviour {
 	}
 
 	void Hit(TowerAttributes.GetModifiers getModifiers) {
+		float pendingSpeedMultiplier = 1f;
 		foreach (TowerAttributes.Modifier mod in getModifiers()) {
 			switch (mod.type) {
 			case TowerAttributes.ModifierType.Damage:
 				currentHealth -= mod.value;
 				break;
 			case TowerAttributes.ModifierType.Slow:
-				speed *= mod.value;
-				break;
-			default:
-				Debug.LogError ("Unsupported Modifier Type!");
+				pendingSpeedMultiplier *= mod.value;
 				break;
 			}
 		}
+		speedMultiplier = pendingSpeedMultiplier; // prevent compounding slow
 
 		if (currentHealth <= 0) {
 			Destroy (gameObject);

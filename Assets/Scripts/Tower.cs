@@ -27,6 +27,7 @@ public class Tower : MonoBehaviour {
 	void Start() {
 		modifiers = new List<TowerAttributes.Modifier>();
 		modifiers.Add (new TowerAttributes.Modifier(TowerAttributes.ModifierType.Damage, 3f));
+		modifiers.Add (new TowerAttributes.Modifier(TowerAttributes.ModifierType.Slow, 0.7f));
 		attackDelay = 1f / attackSpeed;
 		StartCoroutine (BeginFiring());
 	}

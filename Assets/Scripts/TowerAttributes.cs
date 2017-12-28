@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerAttributes : ScriptableObject {
+public class TowerAttributes {
 	public enum ModifierType { Slow, Damage };
 	public struct Modifier {
 		public ModifierType type;
@@ -13,5 +13,10 @@ public class TowerAttributes : ScriptableObject {
 			value = _value;
 		}
 	}
+
+	/* essentially used like a function pointer
+	 * we want each projectile to hold a reference to the function that provides
+	 * modifiers instead each projectile holding a copy of the list of modifiers
+	 */
 	public delegate IList GetModifiers();
-}
+}		
