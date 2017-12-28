@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Tower : MonoBehaviour {
 
 	public Transform projectilePrefab;
-	public List<TowerAttributes.ModifierType> modifiers; // special attributes that modify the tower's effects
+	public List<TowerAttributes.Modifier> modifiers; // special attributes that modify the tower's effects
 
 	public float attackRange = 3f;
 	public float attackSpeed = 1f;
@@ -14,19 +14,21 @@ public class Tower : MonoBehaviour {
 	private Transform target;
 	private Collider2D[] hitColliders;
 
-
-	void Start() {
-		modifiers = new List<TowerAttributes.ModifierType>();
-		modifiers.Add (TowerAttributes.ModifierType.Damage1);
-		modifiers.Add (TowerAttributes.ModifierType.Slow1);
-		attackDelay = 1f / attackSpeed;
-		StartCoroutine (BeginFiring());
-	}
-
 	// draw attack range indicator
 	void OnDrawGizmos() {
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere (transform.position, attackRange);
+	}
+
+	IList GetModifiers() {
+		return modifiers;
+	}
+
+	void Start() {
+		modifiers = new List<TowerAttributes.Modifier>();
+		modifiers.Add (new TowerAttributes.Modifier(TowerAttributes.ModifierType.Damage, 3f));
+		attackDelay = 1f / attackSpeed;
+		StartCoroutine (BeginFiring());
 	}
 
 	void Update () {
@@ -42,7 +44,6 @@ public class Tower : MonoBehaviour {
 
 		if (hitColliders.Length > 0) {
 			target = hitColliders [0].gameObject.transform;
-
 		}
 	}
 
@@ -62,6 +63,6 @@ public class Tower : MonoBehaviour {
 		Transform projectile = (Transform) Instantiate (projectilePrefab, transform.position, transform.rotation);
 		Projectile projScript = projectile.GetComponent<Projectile> ();
 		projScript.target = target.position;
-		projScript.modifiers = modifiers;
+		projScript.getModifiers = GetModifiers;
 	}
 }

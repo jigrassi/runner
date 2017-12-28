@@ -2,11 +2,10 @@
 using System.Collections;
 
 public class Projectile : MonoBehaviour {
-
 	public float speed = 1f;
 	public Vector2 target;
 	public float effectRadius = 1f;
-	public IList modifiers;
+	public TowerAttributes.GetModifiers getModifiers;
 
 	private const float CollisionRadius = 0.2f;
 	public Transform explosionPrefab;
@@ -23,7 +22,7 @@ public class Projectile : MonoBehaviour {
 			DestroyObject(gameObject);
 			Collider2D[] hitCollider = Physics2D.OverlapCircleAll (transform.position, effectRadius);
 			for (int i = 0; i < hitCollider.Length; i++) {
-				hitCollider [i].SendMessage ("Hit", modifiers);
+				hitCollider [i].SendMessage ("Hit", getModifiers);
 			}
 			Transform exp = Instantiate (explosionPrefab, transform.position, transform.rotation);
 			exp.SendMessage("SetSize", effectRadius * 2);

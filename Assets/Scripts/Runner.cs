@@ -35,12 +35,19 @@ public class Runner : MonoBehaviour {
 		}
 	}
 
-	void Hit(List<TowerAttributes.ModifierType> modifiers) {
-		TowerAttributes.Modifier m;
-		foreach (TowerAttributes.ModifierType mod in modifiers) {
-			m = TowerAttributes.Instance.GetModifier (mod);
-			currentHealth -= m.addDamage;
-			speed *= m.speedMultiplier;
+	void Hit(TowerAttributes.GetModifiers getModifiers) {
+		foreach (TowerAttributes.Modifier mod in getModifiers()) {
+			switch (mod.type) {
+			case TowerAttributes.ModifierType.Damage:
+				currentHealth -= mod.value;
+				break;
+			case TowerAttributes.ModifierType.Slow:
+				speed *= mod.value;
+				break;
+			default:
+				Debug.LogError ("Unsupported Modifier Type!");
+				break;
+			}
 		}
 
 		if (currentHealth <= 0) {
