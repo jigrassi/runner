@@ -22,10 +22,10 @@ public class Node : MonoBehaviour {
 			return;
 		}
 
-		if (!tile.Buildable()) {
-			Debug.Log("Cannot build on that type of tile!");
-			return;
-		}
+//		if (!tile.Buildable()) {
+//			Debug.Log("Cannot build on that type of tile!");
+//			return;
+//		}
 
 
 //		GameObject s = (GameObject)Instantiate(BuildManager.GetSelectedStructure(), transform, Quaternion.identity);
