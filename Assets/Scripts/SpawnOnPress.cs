@@ -8,7 +8,7 @@ public class SpawnOnPress : MonoBehaviour {
 	public Transform runnerPrefab;
 	public Transform spawnPoint;
 
-	public float enemyCount = 5f;
+	public float enemyCount = 1f;
 	public float spawnDelaySeconds = 0.2f;
 
 	void Awake() {
@@ -19,7 +19,7 @@ public class SpawnOnPress : MonoBehaviour {
 		instance = this;
 	}
 
-	public void spawn() {
+	public void Spawn() {
 		StartCoroutine (SpawnWave ());
 	}
 
