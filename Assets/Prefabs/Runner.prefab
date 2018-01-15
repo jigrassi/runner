@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 21280008}
   - component: {fileID: 11451714}
   - component: {fileID: 5884612}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Runner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07df09c4581d14f498bc4f1aaf7abc39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  baseSpeed: 1
+  speedMultiplier: 1
   maxHealth: 10
   currentHealth: 0
   end: {fileID: 428284, guid: fd310549a791f374794c11e5dd50a2b5, type: 2}
