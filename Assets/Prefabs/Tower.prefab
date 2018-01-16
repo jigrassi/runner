@@ -42,7 +42,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 421444, guid: 4e72373aa73af664babb417205de5ecd, type: 2}
-  modifiers: 
   attackRange: 3
   attackSpeed: 1
 --- !u!212 &21218722
@@ -80,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ea251818e93f1364ebc3ae33781554d1, type: 3}
-  m_Color: {r: 0.625, g: 0.24356619, b: 0.24356619, a: 1}
+  m_Color: {r: 0.875, g: 0.7077206, b: 0.7077206, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

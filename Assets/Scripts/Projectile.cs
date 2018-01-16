@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour {
 	public TowerAttributes.GetModifiers getModifiers;
 
 	private const float CollisionRadius = 0.2f;
+	public Collider2D[] hitCollider;
 	public Transform explosionPrefab;
 
 	void Start() {
@@ -21,7 +22,8 @@ public class Projectile : MonoBehaviour {
 		float dist = Vector2.Distance ((Vector2)target, (Vector2)transform.position);
 		if (dist < CollisionRadius) {
 			DestroyObject(gameObject);
-			Collider2D[] hitCollider = Physics2D.OverlapCircleAll (transform.position, effectRadius);
+			hitCollider = Physics2D.OverlapCircleAll (transform.position, effectRadius, 1 << LayerMask.NameToLayer("Live Units"));
+
 			for (int i = 0; i < hitCollider.Length; i++) {
 				hitCollider [i].SendMessage ("Hit", getModifiers);
 			}

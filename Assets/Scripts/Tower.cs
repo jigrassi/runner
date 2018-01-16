@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Tower : MonoBehaviour {
+public class Tower : MonoBehaviour, IStructure {
 
 	public Transform projectilePrefab;
 	public List<TowerAttributes.Modifier> modifiers; // special attributes that modify the tower's effects
@@ -40,8 +40,7 @@ public class Tower : MonoBehaviour {
 		if (target != null) {
 			return;
 		}
-
-		hitColliders = Physics2D.OverlapCircleAll ((Vector2)transform.position, attackRange);
+		hitColliders = Physics2D.OverlapCircleAll ((Vector2)transform.position, attackRange, 1 << LayerMask.NameToLayer("Live Units"));
 
 		if (hitColliders.Length > 0) {
 			target = hitColliders [0].gameObject.transform;
