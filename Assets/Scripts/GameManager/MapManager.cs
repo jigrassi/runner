@@ -43,7 +43,24 @@ public class MapManager : MonoBehaviour {
 			x = i % width;
 			y = i / height;
 			nodes[y,x] = Instantiate(nodePrefab, new Vector2(tile_offset + x, tile_offset + y), Quaternion.identity).GetComponent<Node>();
+			nodes[y,x].AssignTile(CharToTile(stringmap[i]));
+
 		}
+	}
+
+	Tile CharToTile(char c) {
+		Tile tile = null;
+
+		switch(c) {
+		case 'l':
+			tile = Land.Instance;
+			break;
+		default:
+			Debug.LogError("does not recognize tile type in map generator");
+			break;
+		}
+
+		return tile;
 	}
 
 	public Vector2 GetMapCenter() {

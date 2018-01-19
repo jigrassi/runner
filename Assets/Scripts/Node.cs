@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Node : MonoBehaviour {
 
-	private ITile tile;
+	private Tile tile;
 	private IStructure structure;
 	private SpriteRenderer rend;
 
 	private const float hoverScaleRatio = 1.5f;
 	private const float baseOpacity = 0.3f;
 
-	void Start() {
+	void Awake() {
 		rend = GetComponent<SpriteRenderer>();
 		HideIndicator();
 	}
-
+		
 	void OnMouseDown() {
 		if (structure != null) {
 			Debug.Log("There's already a building there!");
@@ -38,6 +38,12 @@ public class Node : MonoBehaviour {
 
 	void OnMouseExit() {
 		UnHoverIndicator();
+	}
+
+	public void AssignTile(Tile t) {
+		tile = t;
+
+		rend.sprite = t.sprite;
 	}
 
 	public void HideIndicator() {
