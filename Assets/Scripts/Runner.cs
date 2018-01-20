@@ -29,6 +29,7 @@ public class Runner : MonoBehaviour {
 	}
 
 	void Update() {
+		// always use velocity, translate does not animate well
 		Vector2 dir = (Vector2)end.position - (Vector2)transform.position;
 		transform.Translate (dir.normalized * baseSpeed * speedMultiplier * Time.deltaTime, Space.World);
 

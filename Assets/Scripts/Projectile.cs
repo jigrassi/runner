@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour {
 	void Start() {
 		Vector2 dir = (Vector2)target - (Vector2)transform.position;
 		Rigidbody2D rb = transform.GetComponent<Rigidbody2D> ();
-		rb.velocity = dir * speed;
+		rb.velocity = dir.normalized * speed;
 	}
 
 	void FixedUpdate() {
