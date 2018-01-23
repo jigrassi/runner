@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class BuildManager : MonoBehaviour {
 
-	public static BuildManager instance;
+	public static BuildManager Instance;
 	private MapManager mm;
 
 	void Awake() {
-		if (instance != null) {
+		if (Instance != null) {
 			Debug.LogError("There's more than one BuildManager in the scene!!");
 		}
 
-		instance = this;
+		Instance = this;
 
 		mm = GetComponent<MapManager>();
 
@@ -41,6 +41,10 @@ public class BuildManager : MonoBehaviour {
 				mm.HideNodeIndicators();
 			}
 		}
+	}
+
+	public bool GetBuildEnabled() {
+		return buildEnabled;
 	}
 
 	public GameObject GetSelectedStructure() {

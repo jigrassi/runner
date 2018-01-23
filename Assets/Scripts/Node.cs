@@ -8,6 +8,8 @@ public class Node : MonoBehaviour {
 	private IStructure structure;
 	private SpriteRenderer rend;
 
+	private Color buildActiveColor = new Color (0, 255, 255);
+	private Color buildHoverColor = new Color (255, 90, 209);
 	private const float hoverScaleRatio = 1.5f;
 	private const float baseOpacity = 0.3f;
 
@@ -17,27 +19,39 @@ public class Node : MonoBehaviour {
 	}
 		
 	void OnMouseDown() {
+		if (!BuildManager.Instance.GetBuildEnabled()) {
+			return;
+		}
+
 		if (structure != null) {
 			Debug.Log("There's already a building there!");
 			return;
 		}
 
-//		if (!tile.Buildable()) {
-//			Debug.Log("Cannot build on that type of tile!");
-//			return;
-//		}
+		if (!tile.buildable) {
+			Debug.Log("Cannot build on that type of tile!");
+			return;
+		}
 
+		GameObject prefab = BuildManager.Instance.GetSelectedStructure ();
+		GameObject s = (GameObject)Instantiate (prefab, transform);
+		structure = s.GetComponent<IStructure> ();
 
-//		GameObject s = (GameObject)Instantiate(BuildManager.GetSelectedStructure(), transform, Quaternion.identity);
-//		structure = s.GetComponent<IStructur
 	}
 
 	void OnMouseEnter() {
-		HoverIndicator();
+		if (!BuildManager.Instance.GetBuildEnabled()) {
+			return;
+		}
+		HoverIndicator ();
 	}
 
 	void OnMouseExit() {
-		UnHoverIndicator();
+		if (!BuildManager.Instance.GetBuildEnabled()) {
+			return;	
+		}
+
+		UnHoverIndicator ();
 	}
 
 	public void AssignTile(Tile t) {
@@ -47,21 +61,19 @@ public class Node : MonoBehaviour {
 	}
 
 	public void HideIndicator() {
-		SetIndicatorOpacity(0f);
+		rend.color = Color.white;
 	}
 
 	public void ShowIndicator() {
-		SetIndicatorOpacity(baseOpacity);
+		rend.color = buildActiveColor;
 	}
 
 	void HoverIndicator() {
-		ScaleIndicatorOpacity(hoverScaleRatio);
+		rend.color = buildHoverColor;
 	}
 
 	void UnHoverIndicator() {
-		if (rend.color.a != baseOpacity) {
-			ScaleIndicatorOpacity(1 / hoverScaleRatio);
-		}
+		rend.color = buildActiveColor;
 	}
 
 	void SetIndicatorOpacity(float opacity) {
