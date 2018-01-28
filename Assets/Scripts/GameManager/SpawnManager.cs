@@ -1,31 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpawnOnPress : MonoBehaviour {
+public class SpawnManager : MonoBehaviour {
 
-	public static SpawnOnPress instance;
+	public static SpawnManager instance;
 
-	public Transform runnerPrefab;
-	public Transform spawnPoint;
+	public delegate void Spawn();
+	public static event Spawn OnSpawn;
 
 	public float enemyCount = 1f;
 	public float spawnDelaySeconds = 0.2f;
 
 	void Awake() {
 		if (instance != null) {
-			Debug.LogError ("More than one SpawnOnPress in scene!");
+			Debug.LogError ("More than one SpawnManager in scene!");
 			return;
 		}
 		instance = this;
 	}
 
-	public void Spawn() {
+	public void StartSpawn() {
 		StartCoroutine (SpawnWave ());
 	}
 
 	IEnumerator SpawnWave() {
 		for (int i = 0; i < enemyCount; i++) {
-			Instantiate (runnerPrefab, spawnPoint.position, spawnPoint.rotation);
+			Spawn ();
 			yield return new WaitForSeconds (spawnDelaySeconds);
 		}
 	}

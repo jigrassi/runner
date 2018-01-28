@@ -8,8 +8,9 @@ public class Node : MonoBehaviour {
 	private IStructure structure;
 	private SpriteRenderer rend;
 
-	private Color buildActiveColor = new Color (0, 255, 255);
-	private Color buildHoverColor = new Color (255, 90, 209);
+	private static Color buildActiveColor = new Color (0, 255, 255);
+	private static Color buildInactiveColor = new Color (165, 0, 0);
+	private static Color buildHoverColor = new Color (255, 90, 209);
 	private const float hoverScaleRatio = 1.5f;
 	private const float baseOpacity = 0.3f;
 
@@ -36,28 +37,23 @@ public class Node : MonoBehaviour {
 		GameObject prefab = BuildManager.Instance.GetSelectedStructure ();
 		GameObject s = (GameObject)Instantiate (prefab, transform);
 		structure = s.GetComponent<IStructure> ();
-
 	}
 
 	void OnMouseEnter() {
-		if (!BuildManager.Instance.GetBuildEnabled()) {
-			return;
-		}
 		HoverIndicator ();
 	}
 
 	void OnMouseExit() {
-		if (!BuildManager.Instance.GetBuildEnabled()) {
-			return;	
-		}
-
 		UnHoverIndicator ();
 	}
 
 	public void AssignTile(Tile t) {
 		tile = t;
-
 		rend.sprite = t.sprite;
+	}
+
+	public void Build(GameObject building) {
+		structure = Instantiate (building, transform).GetComponent<IStructure>();
 	}
 
 	public void HideIndicator() {
@@ -65,26 +61,28 @@ public class Node : MonoBehaviour {
 	}
 
 	public void ShowIndicator() {
-		rend.color = buildActiveColor;
+		if (!BuildManager.Instance.GetBuildEnabled ()) {
+			return;
+		}
+
+		if (tile.buildable) {
+			rend.color = buildActiveColor;
+		} else {
+			rend.color = buildInactiveColor;
+		}
 	}
 
 	void HoverIndicator() {
+		if (!BuildManager.Instance.GetBuildEnabled() || !tile.buildable) {
+			return;
+		}
 		rend.color = buildHoverColor;
 	}
 
 	void UnHoverIndicator() {
+		if (!BuildManager.Instance.GetBuildEnabled() || !tile.buildable) {
+			return;	
+		}
 		rend.color = buildActiveColor;
-	}
-
-	void SetIndicatorOpacity(float opacity) {
-		Color c = rend.color;
-		c.a = opacity;
-		rend.color = c;
-	}
-
-	void ScaleIndicatorOpacity(float percentage) {
-		Color c = rend.color;
-		c.a *= percentage;
-		rend.color = c;
 	}
 }

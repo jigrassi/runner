@@ -16,8 +16,8 @@ TagManager:
   - Tiles
   - Structures
   - Live Units
+  - Projectiles
   - Particles
-  - 
   - 
   - 
   - 
@@ -44,9 +44,21 @@ TagManager:
   - name: Background
     uniqueID: 4188859873
     locked: 0
-  - name: Objects
+  - name: Tiles
     uniqueID: 4095964981
     locked: 0
-  - name: Object UI
+  - name: Structures
     uniqueID: 3921984769
+    locked: 0
+  - name: Live Units
+    uniqueID: 2793680015
+    locked: 0
+  - name: Projectiles
+    uniqueID: 1283720137
+    locked: 0
+  - name: Particles
+    uniqueID: 44586343
+    locked: 0
+  - name: UI
+    uniqueID: 1286464911
     locked: 0
