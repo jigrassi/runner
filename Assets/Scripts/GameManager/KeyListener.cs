@@ -11,7 +11,7 @@ public class KeyListener : MonoBehaviour {
 //		Debug.Log ("Type: " + e.type);
 		switch (e.keyCode) {
 		case KeyCode.S:
-			SpawnManager.instance.Spawn();
+			SpawnManager.Instance.StartSpawn();
 			break;
 		default:
 //			Debug.Log (e.keyCode + " pressed");

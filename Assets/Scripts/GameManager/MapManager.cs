@@ -62,11 +62,12 @@ public class MapManager : MonoBehaviour {
 			tile = Road.Instance;
 			break;
 		case 's':
-			tile = Spawn.Instance;
-			nodes [y, x].Build(BuildManager.DefaultSpawner);
+			tile = Land.Instance;
+			nodes [y, x].Build(BuildManager.Instance.GetSelectedSpawner());
 			break;
 		case 'e':
-			tile = Exit.Instance;
+			tile = Land.Instance;
+			nodes [y, x].Build(BuildManager.Instance.GetExit());
 			break;
 		default:
 			Debug.LogError("does not recognize tile type in map generator");
@@ -74,8 +75,6 @@ public class MapManager : MonoBehaviour {
 		}
 
 		nodes[y,x].AssignTile (tile);
-
-		return tile;
 	}
 
 	public Vector2 GetMapCenter() {

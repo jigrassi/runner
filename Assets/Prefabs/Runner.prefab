@@ -49,7 +49,7 @@ MonoBehaviour:
   speedMultiplier: 1
   maxHealth: 10
   currentHealth: 0
-  end: {fileID: 428284, guid: fd310549a791f374794c11e5dd50a2b5, type: 2}
+  end: {fileID: 4211616260149220, guid: 8784a6ac09b6110449228a8aea9235c0, type: 2}
   healthPrefab: {fileID: 224899677198455380, guid: a6ef0828605e3bd4b9a4910305c5c461,
     type: 2}
 --- !u!212 &21280008

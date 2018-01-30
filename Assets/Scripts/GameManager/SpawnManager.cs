@@ -3,29 +3,31 @@ using System.Collections;
 
 public class SpawnManager : MonoBehaviour {
 
-	public static SpawnManager instance;
+	public static SpawnManager Instance;
 
 	public delegate void Spawn();
 	public static event Spawn OnSpawn;
 
 	public float enemyCount = 1f;
 	public float spawnDelaySeconds = 0.2f;
+	public GameObject runner;
 
 	void Awake() {
-		if (instance != null) {
+		if (Instance != null) {
 			Debug.LogError ("More than one SpawnManager in scene!");
 			return;
 		}
-		instance = this;
+		Instance = this;
 	}
 
 	public void StartSpawn() {
 		StartCoroutine (SpawnWave ());
 	}
 
-	IEnumerator SpawnWave() {
+	private IEnumerator SpawnWave() {
 		for (int i = 0; i < enemyCount; i++) {
-			Spawn ();
+			if (OnSpawn != null)
+				OnSpawn();
 			yield return new WaitForSeconds (spawnDelaySeconds);
 		}
 	}
