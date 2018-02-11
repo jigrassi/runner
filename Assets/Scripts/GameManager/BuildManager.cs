@@ -26,6 +26,9 @@ public class BuildManager : MonoBehaviour {
 	private GameObject selectedStructure;
 	public GameObject defaultStructure;
 
+	public GameObject defaultSpawner;
+	public GameObject defaultExit;
+
 	void Start() {
 		buildEnabled = false;
 		selectedStructure = defaultStructure;
@@ -49,5 +52,14 @@ public class BuildManager : MonoBehaviour {
 
 	public GameObject GetSelectedStructure() {
 		return selectedStructure;
+	}
+
+	public GameObject GetSelectedSpawner() {
+		return defaultSpawner;
+	}
+
+	public GameObject GetExit()
+	{
+		return defaultExit;
 	}
 }

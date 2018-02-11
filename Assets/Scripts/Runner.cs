@@ -15,6 +15,8 @@ public class Runner : MonoBehaviour {
 	public Transform healthPrefab;
 	private Transform healthDisplay;
 
+	private Rigidbody2D rigidBody;
+
 	void Awake() {
 		currentHealth = maxHealth;
 
@@ -26,12 +28,14 @@ public class Runner : MonoBehaviour {
 		RectTransform rt = healthDisplay.GetComponent<RectTransform>();
 		rt.localScale = new Vector2(1, 1);
 		rt.localPosition = new Vector2(0, 3);
+
+		rigidBody = GetComponent<Rigidbody2D> ();
 	}
 
-	void Update() {
+	void FixedUpdate() {
 		// always use velocity, translate does not animate well
 		Vector2 dir = (Vector2)end.position - (Vector2)transform.position;
-		transform.Translate (dir.normalized * baseSpeed * speedMultiplier * Time.deltaTime, Space.World);
+		rigidBody.MovePosition (rigidBody.position + dir.normalized * baseSpeed * speedMultiplier * Time.fixedDeltaTime);
 
 		if (Vector2.Distance((Vector2)transform.position, (Vector2)end.position) < 0.3f) {
 			Destroy (gameObject);

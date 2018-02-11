@@ -23,12 +23,12 @@ public class MapManager : MonoBehaviour {
 
 	// mapping format: width,height, on the first line followed by a string representing the map
 	private string defaultMapping = "6,6," +
-									"llllll" +
-									"llllll" +
-									"llllll" +
-									"llllll" +
-									"llllll" +
-									"llllll";
+									"lsllll" +
+									"lrllll" +
+									"lrlrre" +
+									"lrlrll" +
+									"lrlrll" +
+									"lrrrll";
 	private int width, height;
 
 	void LoadMap() {
@@ -45,25 +45,36 @@ public class MapManager : MonoBehaviour {
 		for(int i = 0; i < stringmap.Length; i++) {
 			x = i % width;
 			y = i / height;
-			nodes[y,x] = Instantiate(nodePrefab, new Vector2(tile_offset + x, tile_offset + y), Quaternion.identity).GetComponent<Node>();
-			nodes[y,x].AssignTile(CharToTile(stringmap[i]));
+			nodes[y,x] = Instantiate(nodePrefab, new Vector2(tile_offset + x, height - tile_offset - y), Quaternion.identity).GetComponent<Node>();
 
+			LoadTile (stringmap [i], x, y);
 		}
 	}
 
-	Tile CharToTile(char c) {
+	void LoadTile(char c, int x, int y) {
 		Tile tile = null;
 
 		switch(c) {
 		case 'l':
 			tile = Land.Instance;
 			break;
+		case 'r':
+			tile = Road.Instance;
+			break;
+		case 's':
+			tile = Land.Instance;
+			nodes [y, x].Build(BuildManager.Instance.GetSelectedSpawner());
+			break;
+		case 'e':
+			tile = Land.Instance;
+			nodes [y, x].Build(BuildManager.Instance.GetExit());
+			break;
 		default:
 			Debug.LogError("does not recognize tile type in map generator");
 			break;
 		}
 
-		return tile;
+		nodes[y,x].AssignTile (tile);
 	}
 
 	public Vector2 GetMapCenter() {

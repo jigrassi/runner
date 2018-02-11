@@ -14,6 +14,11 @@ public class Tower : MonoBehaviour, IStructure {
 	private Transform target;
 	private Collider2D[] hitColliders;
 
+	public int GetCost()
+	{
+		return 1;
+	}
+
 	// draw attack range indicator
 	void OnDrawGizmos() {
 		Gizmos.color = Color.red;
