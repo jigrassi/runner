@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour {
+public class Spawner : MonoBehaviour, IStructure {
 
 	void Awake()
 	{
@@ -12,5 +12,10 @@ public class Spawner : MonoBehaviour {
 	void SpawnUnit()
 	{
 		Instantiate(SpawnManager.Instance.runner, transform);
+	}
+
+	public int GetCost()
+	{
+		return 0;
 	}
 }

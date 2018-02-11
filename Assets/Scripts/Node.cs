@@ -14,6 +14,8 @@ public class Node : MonoBehaviour {
 	private const float hoverScaleRatio = 1.5f;
 	private const float baseOpacity = 0.3f;
 
+	public bool isExit = false;
+
 	void Awake() {
 		rend = GetComponent<SpriteRenderer>();
 		HideIndicator();

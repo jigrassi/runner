@@ -14,7 +14,7 @@ public class BuildManager : MonoBehaviour {
 
 		Instance = this;
 
-		mm = GetComponent<MapManager>();
+		mm = MapManager.Instance;
 
 		if (!mm) {
 			Debug.LogError("Could not find map manager on the GameManager");
