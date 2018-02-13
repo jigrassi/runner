@@ -67,11 +67,21 @@ public class MapManager : MonoBehaviour {
 		return height;
 	}
 
+	public bool IsExit(Vector2 position)
+	{
+		Coord coord = PositionToCoord(position);
+		return nodes[coord.y, coord.x].isExit;
+	}
+
 	public Vector2 GetNextPosition(Vector2 curPosition)
 	{
 		Coord coord = PositionToCoord(curPosition);
-		ShowMeDaWay(coord, new Dictionary<int, bool>());
-		return CoordToPosition(calculatedPathing[EncodeCoord(coord)]);
+		int encodedKey = EncodeCoord(coord);
+		if (!calculatedPathing.ContainsKey(encodedKey)) {
+			ShowMeDaWay(coord, new Dictionary<int, bool>());
+		}
+
+		return CoordToPosition(calculatedPathing[encodedKey]);
 	}
 
 	private int EncodeCoord(Coord c)
@@ -85,7 +95,7 @@ public class MapManager : MonoBehaviour {
 
 	private Coord PositionToCoord(Vector2 position)
 	{
-		return new Coord((int)(position.x - tile_offset), (int)(position.y + tile_offset - height));
+		return new Coord(Mathf.FloorToInt(position.x), height - Mathf.FloorToInt(position.y) - 1);
 	}
 
 	private Vector2 CoordToPosition(Coord c)
@@ -111,11 +121,13 @@ public class MapManager : MonoBehaviour {
 	{
 		if (nodes[coord.y, coord.x].isExit)
 		{
+			Debug.LogFormat("Found Exit at: {0}, {1}", coord.x, coord.y);
 			return coord;
 		}
-		// account for already calculated node
+
 		int encodedKey = EncodeCoord(coord);
-		if (visited[encodedKey])
+
+		if (visited.ContainsKey(encodedKey))
 		{
 			return null;
 		}
@@ -133,6 +145,12 @@ public class MapManager : MonoBehaviour {
 		foreach (Coord dir in dir_options)
 		{
 			neighbourCoord = new Coord(coord.x + dir.x, coord.y + dir.y);
+
+			if (neighbourCoord.x < 0 || neighbourCoord.x >= nodes.GetLength(1) || neighbourCoord.y < 0 || neighbourCoord.y >= nodes.GetLength(0))
+			{
+				continue;
+			}
+
 			exitLocation = ShowMeDaWay(neighbourCoord, visited);
 
 			if (exitLocation.HasValue)
@@ -196,6 +214,7 @@ public class MapManager : MonoBehaviour {
 		case 'e':
 			tile = Land.Instance;
 			nodes [y, x].Build(BuildManager.Instance.GetExit());
+			nodes [y, x].isExit = true;
 			break;
 		default:
 			Debug.LogError("does not recognize tile type in map generator");

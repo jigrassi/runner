@@ -10,7 +10,8 @@ public class Runner : MonoBehaviour {
 	public float speedMultiplier = 1f;
 	public float maxHealth = 10f;
 	public float currentHealth = 0f;
-	public Transform end;
+	public Vector2? dest = null;
+	private Vector2 dir;
 
 	public Transform healthPrefab;
 	private Transform healthDisplay;
@@ -34,11 +35,24 @@ public class Runner : MonoBehaviour {
 
 	void FixedUpdate() {
 		// always use velocity, translate does not animate well
-		Vector2 dir = (Vector2)end.position - (Vector2)transform.position;
+		if (!dest.HasValue)
+		{
+			dest = MapManager.Instance.GetNextPosition(transform.position);
+		}
+
+		dir = dest.Value - (Vector2)transform.position;
 		rigidBody.MovePosition (rigidBody.position + dir.normalized * baseSpeed * speedMultiplier * Time.fixedDeltaTime);
 
-		if (Vector2.Distance((Vector2)transform.position, (Vector2)end.position) < 0.3f) {
-			Destroy (gameObject);
+		if (Vector2.Distance((Vector2)transform.position, dest.Value) < 0.1f)
+		{
+			if (MapManager.Instance.IsExit(transform.position))
+			{
+				Destroy(gameObject);
+			}
+			else
+			{
+				dest = MapManager.Instance.GetNextPosition(transform.position);
+			}
 		}
 	}
 
